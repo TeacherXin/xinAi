@@ -1,0 +1,63 @@
+.chatItem {
+    width: 800px;
+    height: max-content;
+    margin-top: 20px;
+}
+.messageContent {
+    width: 800px;
+    display: flex;
+    justify-content: flex-end;
+}
+.message {
+    width: max-content;
+    height: 50px;
+    background-color: #EBEFFA;
+    line-height: 50px;
+    padding-left: 10px;
+    padding-right: 30px;
+    border-radius: 20px;
+}
+
+.answerContent {
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.answer {
+    max-width: 700px;
+    width: max-content;
+    min-height: 50px;
+    background-color: #EBEFFA;
+    line-height: 50px;
+    padding-left: 10px;
+    border-radius: 20px;
+    padding-right: 30px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin:5px
+}
+
+.dialogCard {
+    height: 70%;
+    overflow-y: scroll;
+}
+
+.dialogCard::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.dialogCard::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dialogCard::-webkit-scrollbar-track {
+    border-radius: 0;
+}

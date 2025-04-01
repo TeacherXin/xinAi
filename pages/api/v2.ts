@@ -13,14 +13,17 @@ const getV2 = async (message, res) => {
             model: 'gpt-3.5-turbo',
             stream: true,
         });
+        const eventName = 'major';
+        res.write(`event: ${eventName}\n`);
+        res.write(`data: ${new Date().getTime()}\n\n`);
 
         for await (const part of stream) {
             // if (res.finished) break; // 检查客户端是否已断开连接
             const eventName = 'message';
-            console.log(part.choices[0].delta.content);
             if (part.choices[0].delta && part.choices[0].delta.content) {
-              res.write(`event: ${eventName}\n`);
-              res.write(`data: ${part.choices[0].delta.content}\n\n`);
+                console.log(part.choices[0].delta.content);
+                res.write(`event: ${eventName}\n`);
+                res.write(`data: ${part.choices[0].delta.content}\n\n`);
             }
         }
         res.end(); // 结束连接
