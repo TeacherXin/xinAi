@@ -1,6 +1,5 @@
 import { useState } from "react"
 import styles from './index.module.css'
-import ReactMarkdown from 'react-markdown'
 import { Button, Input } from 'antd';
 import DialogCard, { Chat } from "../components/dialogCard";
 
@@ -22,8 +21,12 @@ function HomePage() {
         })
         evtSource.onmessage = function(event) {
             console.log('Received data:', event.data);
+            let data;
+            try {
+                data = JSON.parse(event.data);
+            } catch{}
             if (event.data) {
-                answerItem += event.data;
+                answerItem += data.content;
                 chatItem.answer = answerItem;
                 setChatList([...chatList, chatItem])
             }
@@ -34,16 +37,18 @@ function HomePage() {
             setMessage('');
         };
     }
-    return <div className={styles.main}>
-        <DialogCard chatList={chatList} />
-        {/* <div className={styles.content}>
-            <ReactMarkdown>{answer}</ReactMarkdown>
-        </div> */}
-        <div className={styles.bottom}>
-            <TextArea style={{width: 800, height: 150}} value={message} onChange={(e) => {
-                setMessage(e.target.value)
-            }}/>
-            <Button className={styles.btn} onClick={getData}>发送</Button>
+    return <div className={styles.root}>
+        <div className={styles.main}>
+            <Button className={styles.newSession} onClick={() => {
+                setChatList([])
+            }}>新建对话</Button>
+            <DialogCard chatList={chatList} />
+            <div className={styles.bottom}>
+                <TextArea style={{width: 800, height: 150}} value={message} onChange={(e) => {
+                    setMessage(e.target.value)
+                }}/>
+                <Button className={styles.btn} onClick={getData}>发送</Button>
+            </div>
         </div>
     </div>
 }

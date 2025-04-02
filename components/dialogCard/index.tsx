@@ -1,6 +1,9 @@
 import * as React from 'react';
 import styles from './index.module.css';
 import { Avatar } from 'antd'
+import ReactMarkdown from "react-markdown";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import oneDark from 'react-syntax-highlighter/dist/styles/atelier-cave-light';
 
 export interface Chat {
     message: string;
@@ -15,6 +18,26 @@ interface IDialogCardProps {
 const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
     const { chatList } = props;
 
+    const getCode = (params) => {
+        const { node, inline, className, children, ...props } = params;
+        const match = /language-(\w+)/.exec(className || '');
+        return !inline && match ? (
+        <SyntaxHighlighter
+            className={styles.codeBlock}
+            style={oneDark}
+            language={match[1]}
+            PreTag="div"
+            {...props}
+        >
+            {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+        ) : (
+        <code className={className} {...props}>
+            {children}
+        </code>
+        );
+    }
+
     return <div className={styles.dialogCard}>
         {
             chatList.map((chat, index) => {
@@ -25,7 +48,13 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
                     </div>
                     <div className={styles.answerContent}>
                         <Avatar className={styles.avatar}>爹gpt</Avatar>
-                        <div className={styles.answer}>{chat.answer}</div>
+                        <div className={styles.answer}>
+                            <ReactMarkdown
+                                components={{code: getCode}}
+                            >
+                                {chat.answer}
+                            </ReactMarkdown>
+                        </div>
                     </div>
                 </div>;
             })

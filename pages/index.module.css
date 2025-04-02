@@ -4,6 +4,14 @@
     position: relative;
     height: 100vh;
 }
+.newSession {
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    font-size: 17px;
+    left: 20px;
+    top: 20px;
+}
 .bottom {
     width: 800px;
     position: absolute;
@@ -20,4 +28,10 @@
     width: 800px;
     position: absolute;
     left: calc(50% - 400px);
+}
+
+.root {
+    position: fixed;
+    width: 100%;
+    background: #F4F6FC;
 }
