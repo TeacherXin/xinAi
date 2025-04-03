@@ -20,8 +20,8 @@ const getV2 = async (message, res) => {
         for await (const part of stream) {
             // if (res.finished) break; // 检查客户端是否已断开连接
             const eventName = 'message';
-            if (Object.keys(part.choices[0].delta).length > 0) {
-                console.log(part.choices[0].delta.content);
+            if (Object.keys(part.choices[0]?.delta).length > 0) {
+                console.log(part.choices[0].delta);
                 res.write(`event: ${eventName}\n`);
                 res.write(`data: ${JSON.stringify(part.choices[0].delta)}\n\n`);
             }
