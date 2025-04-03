@@ -19,7 +19,7 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
     const { chatList } = props;
 
     const getCode = (params) => {
-        const { node, inline, className, children, ...props } = params;
+        const { inline, className, children, ...props } = params;
         const match = /language-(\w+)/.exec(className || '');
         return !inline && match ? (
         <SyntaxHighlighter

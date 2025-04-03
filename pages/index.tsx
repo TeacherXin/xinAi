@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import styles from './index.module.css'
 import { Button, Input } from 'antd';
 import DialogCard, { Chat } from "../components/dialogCard";
@@ -9,7 +9,7 @@ function HomePage() {
     const [chatList, setChatList] = useState<Chat []>([])
     const getData  = async () => {
         let answerItem = '';
-        let chatItem: Chat = {
+        const chatItem: Chat = {
             message,
             answer: '',
             id: '',
@@ -24,7 +24,7 @@ function HomePage() {
             let data;
             try {
                 data = JSON.parse(event.data);
-            } catch{}
+            } catch{ /* empty */ }
             if (event.data) {
                 answerItem += data.content;
                 chatItem.answer = answerItem;
