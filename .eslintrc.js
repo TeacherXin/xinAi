@@ -24,30 +24,46 @@ module.exports = {
     'react',
     '@typescript-eslint',
   ],
-  rules: {
-    // 这里可以添加或覆盖规则
-    'react/react-in-jsx-scope': 'off', // Next.js 13+ 不再需要导入 React
-    'react/jsx-uses-react': 'error',
-    'react/jsx-uses-vars': 'error',
-    'react/jsx-indent': ['error', 2], // 2个空格缩进
-    'react/jsx-indent-props': ['error', 2], // 属性缩进2个空格
-    'react/jsx-max-props-per-line': ['error', { maximum: 1 }], // 每行最多1个属性
-    'react/jsx-closing-bracket-location': ['error', 'line-aligned'], // 闭合标签与首标签对齐
-    'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'ignore' }], // 属性中不使用花括号
-    'react/jsx-tag-spacing': ['error', { beforeSelfClosing: 'always' }], // 自闭合标签前有空格
-    'react/jsx-no-literals': 'warn', // 警告直接使用字符串字面量
-    'react/jsx-no-bind': 'error', // 禁止在render中绑定方法
-    'react/jsx-props-no-spreading': 'warn', // 警告过度使用对象展开
-    'react/jsx-sort-props': ['warn', {
-      ignoreCase: true,
-      callbacksLast: false,
-      shorthandFirst: false,
-      shorthandLast: false,
-    }], // 按字母顺序排序属性
-    'react/jsx-boolean-value': ['error', 'always'], // 省略布尔属性的值
-    'react/jsx-handler-names': ['warn', {
-      eventHandlerPrefix: 'handle',
-      eventHandlerPropPrefix: 'on',
-    }], // 事件处理程序命名约定
+  "rules": {
+      "no-bitwise": "off",
+      "no-empty": "off",
+      "no-restricted-globals": "off",
+      "func-names": [
+          "warn",
+          "never",
+          {
+              "generators": "always"
+          }
+      ],
+      "max-classes-per-file": "off",
+      "react/no-danger": "off",
+      "react/no-array-index-key": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react/default-props-match-prop-types": "off",
+      "react/destructuring-assignment": "off",
+      "prettier/prettier": "error",
+      "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+              "js": "never",
+              "ts": "never",
+              "jsx": "never",
+              "tsx": "never"
+              //        "jpg": "never",
+              //        "png": "never"
+          }
+      ],
+      "import/no-extraneous-dependencies": "off",
+      "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+              "argsIgnorePattern": "^_",
+              "varsIgnorePattern": "^_"
+          }
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-expressions": "off"
   },
 };

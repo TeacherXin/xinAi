@@ -44,7 +44,7 @@ function HomePage() {
             }}>新建对话</Button>
             <DialogCard chatList={chatList} />
             <div className={styles.bottom}>
-                <TextArea style={{width: 800, height: 150}} value={message} onChange={(e) => {
+                <TextArea className={styles.textArea} style={{width: 800, height: 150}} value={message} onChange={(e) => {
                     setMessage(e.target.value)
                 }}/>
                 <Button className={styles.btn} onClick={getData}>发送</Button>
