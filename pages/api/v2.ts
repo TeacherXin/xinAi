@@ -4,7 +4,7 @@ const OpenAi = require('openai');
 require('dotenv').config();
 
 const client = new OpenAi({
-    apiKey: process.env.OPENAI_API_KEY, // 使用环境变量加载 API 密钥
+    apiKey: process.env.OPENAI_API_FREE_KEY, // 使用环境变量加载 API 密钥
     baseURL: 'https://api.chatanywhere.tech/v1',
 });
 

@@ -68,3 +68,22 @@
 .dialogCard::-webkit-scrollbar-track {
     border-radius: 0;
 }
+
+.typewritter {
+    border-right: 2px solid transparent;
+    animation: blink .6s infinite;
+    height: 16px;
+    width: 1px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+@keyframes blink {
+    from {
+        border-right-color: transparent;
+    }
+
+    to {
+        border-right-color: rgb(15 23 42);
+    }
+}

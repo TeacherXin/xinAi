@@ -13,10 +13,11 @@ export interface Chat {
 
 interface IDialogCardProps {
     chatList: Chat[];
+    loading: boolean;
 }
 
 const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
-    const { chatList } = props;
+    const { chatList, loading } = props;
 
     const getCode = (params) => {
         const { inline, className, children, ...props } = params;
@@ -54,6 +55,7 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
                             >
                                 {chat.answer}
                             </ReactMarkdown>
+                            {loading && index === chatList.length - 1 && <div className={styles.typewritter} />}
                         </div>
                     </div>
                 </div>;
