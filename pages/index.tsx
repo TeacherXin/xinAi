@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styles from './index.module.css'
 import { Button, Input } from 'antd';
 import DialogCard, { Chat } from "../components/dialogCard";
+import ModelSelect from "../components/modelSelect";
 
 const { TextArea } = Input;
 function HomePage() {
@@ -41,9 +42,12 @@ function HomePage() {
     }
     return <div className={styles.root}>
         <div className={styles.main}>
-            <Button className={styles.newSession} onClick={() => {
-                setChatList([])
-            }}>新建对话</Button>
+            <div className={styles.leftList}>
+                <Button className={styles.newSession} onClick={() => {
+                    setChatList([])
+                }}>新建对话</Button>
+                <ModelSelect />
+            </div>
             <DialogCard chatList={chatList} loading={loading}/>
             <div className={styles.bottom}>
                 <TextArea className={styles.textArea} style={{width: 800, height: 150}} value={message} onChange={(e) => {

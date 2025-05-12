@@ -5,12 +5,9 @@
     height: 100vh;
 }
 .newSession {
-    position: absolute;
     width: 200px;
     height: 50px;
     font-size: 17px;
-    left: 20px;
-    top: 20px;
 }
 .bottom {
     width: 800px;
@@ -46,4 +43,15 @@
     line-height: 26px;
     font-weight: 400;
     padding: 15px;
+}
+
+.leftList {
+    position: absolute;
+    padding: 20px;
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    left: 0;
+    flex-direction: column;
 }
