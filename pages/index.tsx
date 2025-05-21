@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import type { Chat } from '../components/dialogCard';
 import DialogCard from '../components/dialogCard';
 import ModelSelect from '../components/modelSelect';
+import { useModelStore } from '../components/modelSelect/store';
 
 import styles from './index.module.css';
 
@@ -12,6 +13,8 @@ function HomePage() {
   const [message, setMessage] = useState('');
   const [chatList, setChatList] = useState<Chat[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [sessionId, setSessionId] = useState<string>('');
+  const modelStore = useModelStore();
   const sendData = async () => {
     setLoading(true);
     let answerItem = '';
@@ -21,9 +24,12 @@ function HomePage() {
       id: '',
     };
     setChatList([...chatList, chatItem]);
-    const evtSource = new EventSource(`http://localhost:3000/api/v2?message=${message}`);
+    // eslint-disable-next-line max-len
+    const evtSource = new EventSource(`http://localhost:3000/api/v2?message=${message}&model=${modelStore.model}&sessionId=${sessionId}`);
     evtSource.addEventListener('major', (event) => {
-      chatItem.id = event.data;
+      const { id, session_id } = event.data;
+      chatItem.id = id;
+      setSessionId(session_id);
     });
     evtSource.onmessage = function (event) {
       let data;
@@ -39,6 +45,7 @@ function HomePage() {
       }
     };
     evtSource.onerror = function (error) {
+      // eslint-disable-next-line no-console
       console.error('SSE error:', error);
       setLoading(false);
       evtSource.close();
@@ -53,6 +60,7 @@ function HomePage() {
             className={styles.newSession}
             onClick={() => {
               setChatList([]);
+              setSessionId('');
             }}
           >
             新建对话
