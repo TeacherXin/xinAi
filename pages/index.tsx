@@ -5,6 +5,7 @@ import type { Chat } from '../components/dialogCard';
 import DialogCard from '../components/dialogCard';
 import ModelSelect from '../components/modelSelect';
 import { useModelStore } from '../components/modelSelect/store';
+import { connectSSE } from '../utils/sse';
 
 import styles from './index.module.css';
 
@@ -15,6 +16,7 @@ function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [sessionId, setSessionId] = useState<string>('');
   const modelStore = useModelStore();
+
   const sendData = async () => {
     setLoading(true);
     let answerItem = '';
@@ -24,33 +26,31 @@ function HomePage() {
       id: '',
     };
     setChatList([...chatList, chatItem]);
-    // eslint-disable-next-line max-len
-    const evtSource = new EventSource(`http://localhost:3000/api/v2?message=${message}&model=${modelStore.model}&sessionId=${sessionId}`);
-    evtSource.addEventListener('major', (event) => {
-      const { id, session_id } = event.data;
+    const handleMajor = (data) => {
+      const { id, session_id } = data;
       chatItem.id = id;
       setSessionId(session_id);
-    });
-    evtSource.onmessage = function (event) {
-      let data;
-      try {
-        data = JSON.parse(event.data);
-      } catch {
-        /* empty */
-      }
-      if (event.data) {
+    };
+    const handleMessage = (data) => {
+      if (data) {
         answerItem += data.content;
         chatItem.answer = answerItem;
         setChatList([...chatList, chatItem]);
       }
     };
-    evtSource.onerror = function (error) {
-      // eslint-disable-next-line no-console
-      console.error('SSE error:', error);
+    const handleClose = () => {
       setLoading(false);
-      evtSource.close();
       setMessage('');
     };
+    connectSSE('http://localhost:3000/api/v2', {
+      message,
+      model: modelStore.model,
+      sessionId,
+    }, {
+      major: handleMajor,
+      message: handleMessage,
+      close: handleClose,
+    });
   };
   return (
     <div className={styles.root}>

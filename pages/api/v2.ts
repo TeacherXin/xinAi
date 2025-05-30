@@ -31,7 +31,7 @@ const getV2 = async (message, res, model, sessionId) => {
       session_id = `session_id_${  new Date().getTime()}`;
       historyList = [];
     }
-    res.write(`data: ${{id: new Date().getTime(), session_id}}\n\n`);
+    res.write(`data: ${JSON.stringify({id: new Date().getTime(), session_id})}\n\n`);
 
     let answer = '';
     for await (const part of stream) {
@@ -58,7 +58,7 @@ const getV2 = async (message, res, model, sessionId) => {
 };
 
 export default async function (req, res) {
-  const { message, model, sessionId } = req.query;
+  const { message, model, sessionId } = JSON.parse(req.body || '{}');
 
   // 设置适当的头信息
   res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
