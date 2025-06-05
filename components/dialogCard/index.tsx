@@ -42,21 +42,23 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
 
   return (
     <div className={styles.dialogCard}>
-      {chatList.map((chat, index) => (
-        <div className={styles.chatItem} key={index}>
-          <div className={styles.messageContent}>
-            <div className={styles.message}>{chat.message}</div>
-            <Avatar className={styles.avatar} src="/chat_user.png" />
-          </div>
-          <div className={styles.answerContent}>
-            <Avatar className={styles.avatar} src="/chat_main.png" />
-            <div className={styles.answer}>
-              <ReactMarkdown components={{ code: getCode }}>{chat.answer}</ReactMarkdown>
-              {loading && index === chatList.length - 1 && <div className={styles.typewritter} />}
+      <div className={styles.chatList}>
+        {chatList.map((chat, index) => (
+          <div className={styles.chatItem} key={index}>
+            <div className={styles.messageContent}>
+              <div className={styles.message}>{chat.message}</div>
+              <Avatar className={styles.avatar} src="/chat_user.png" />
+            </div>
+            <div className={styles.answerContent}>
+              <Avatar className={styles.avatar} src="/chat_main.png" />
+              <div className={styles.answer}>
+                <ReactMarkdown components={{ code: getCode }}>{chat.answer}</ReactMarkdown>
+                {loading && index === chatList.length - 1 && <div className={styles.typewritter} />}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

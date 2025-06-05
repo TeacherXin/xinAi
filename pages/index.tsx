@@ -67,20 +67,22 @@ function HomePage() {
           </Button>
           <ModelSelect />
         </div>
-        <DialogCard chatList={chatList}
-          loading={loading} />
-        <div className={styles.bottom}>
-          <TextArea
-            className={styles.textArea}
-            style={{ width: 800, height: 150 }}
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-          />
-          <Button className={styles.btn} onClick={sendData}>
+        <div className={styles.container}>
+          <DialogCard chatList={chatList}
+            loading={loading} />
+          <div className={styles.bottom}>
+            <TextArea
+              className={styles.textArea}
+              style={{ width: 800, height: 150 }}
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+            <Button className={styles.btn} onClick={sendData}>
             发送
-          </Button>
+            </Button>
+          </div>
         </div>
       </div>
     </div>
