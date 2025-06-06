@@ -27,14 +27,12 @@
             width: 100%;
             position: relative;
             .bottom {
-                width: 800px;
+                width: 825px;
                 position: absolute;
                 left: calc(50% - 400px);
                 bottom: 30px;
                 .textArea {
-                    width: 765px;
                     height: 150px;
-                    margin-left: 23px;
                     height: 150px;
                     font-size: 16px;
                     color: #06071f;

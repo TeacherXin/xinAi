@@ -106,5 +106,5 @@
   "globals": {
     "React": "readonly"
   },
-  "ignorePatterns": ["node_modules/", ".next/", "out/", "public/", "*.d.ts"]
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "public/", "*.d.ts", "next.config.js"]
 }

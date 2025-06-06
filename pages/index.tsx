@@ -1,10 +1,13 @@
 import { Button, Input } from 'antd';
+import axios from 'axios';
 import React, { useState } from 'react';
 
 import type { Chat } from '../components/dialogCard';
 import DialogCard from '../components/dialogCard';
 import ModelSelect from '../components/modelSelect';
 import { useModelStore } from '../components/modelSelect/store';
+import SkillSelect from '../components/skillSelect';
+import { useSkillStore } from '../components/skillSelect/store';
 import { connectSSE } from '../utils/sse';
 
 import styles from './index.module.css';
@@ -16,9 +19,39 @@ function HomePage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [sessionId, setSessionId] = useState<string>('');
   const modelStore = useModelStore();
+  const skillStore = useSkillStore();
 
   const sendData = async () => {
     setLoading(true);
+    if (skillStore.skill === 'textSkill') {
+      sendDataWithText();
+    }
+    if (skillStore.skill === 'imageSkill') {
+      sendDataWithImage();
+    }
+
+  };
+
+  const sendDataWithImage = async () => {
+    const chatItem: Chat = {
+      message,
+      answer: '',
+      id: '',
+      type: 'image',
+    };
+    setChatList([...chatList, chatItem]);
+    const res = await axios.post('/api/v2/picture', {
+      message,
+    });
+    if (res.data.data && res.data.code === 0) { 
+      const url = res.data.data; 
+      chatItem.answer = url;
+    }
+    setLoading(false);
+    console.log(res);
+  };
+
+  const sendDataWithText = () => {
     let answerItem = '';
     const chatItem: Chat = {
       message,
@@ -52,6 +85,7 @@ function HomePage() {
       close: handleClose,
     });
   };
+
   return (
     <div className={styles.root}>
       <div className={styles.main}>
@@ -65,6 +99,7 @@ function HomePage() {
           >
             新建对话
           </Button>
+          <SkillSelect />
           <ModelSelect />
         </div>
         <div className={styles.container}>
@@ -73,7 +108,7 @@ function HomePage() {
           <div className={styles.bottom}>
             <TextArea
               className={styles.textArea}
-              style={{ width: 800, height: 150 }}
+              style={{ width: 825, height: 150 }}
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value);

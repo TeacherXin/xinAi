@@ -1,4 +1,6 @@
-import { Avatar } from 'antd';
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable max-len */
+import { Avatar, Spin } from 'antd';
 import type * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -10,6 +12,7 @@ export interface Chat {
   message: string
   answer: string
   id: string
+  type?: string
 }
 
 interface IDialogCardProps {
@@ -47,13 +50,14 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
           <div className={styles.chatItem} key={index}>
             <div className={styles.messageContent}>
               <div className={styles.message}>{chat.message}</div>
-              <Avatar className={styles.avatar} src="/chat_user.png" />
+              <Avatar className={styles.avatar} src="/images/chat_user.png" />
             </div>
             <div className={styles.answerContent}>
-              <Avatar className={styles.avatar} src="/chat_main.png" />
+              <Avatar className={styles.avatar} src="/images/chat_main.png" />
               <div className={styles.answer}>
-                <ReactMarkdown components={{ code: getCode }}>{chat.answer}</ReactMarkdown>
-                {loading && index === chatList.length - 1 && <div className={styles.typewritter} />}
+                {chat.type === 'image' && (loading && index === chatList.length - 1 ? <div className={styles.loadingImg}><Spin /></div> : <img className={styles.img} src={chat.answer} alt="" />)}
+                {!chat.type && <ReactMarkdown components={{ code: getCode }}>{chat.answer}</ReactMarkdown>}
+                {loading && !chat.type && index === chatList.length - 1 && <div className={styles.typewritter} />}
               </div>
             </div>
           </div>

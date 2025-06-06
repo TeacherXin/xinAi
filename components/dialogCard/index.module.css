@@ -44,11 +44,25 @@
                     max-width: 700px;
                     width: max-content;
                     min-height: 45px;
-                    background-color: #FFFFFF;
+                    background-color: #F4F5F9;
                     line-height: 45px;
                     padding-left: 30px;
                     border-radius: 20px;
                     padding-right: 30px;
+                    .img {
+                        width: 320px;
+                        height: 320px;
+                        margin-top: 20px;
+                    }
+                    .loadingImg {
+                        width: 320px;
+                        height: 320px;
+                        background-color: #F4F5F9;
+                        margin-top: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                 }
                 .typewritter {
                     border-right: 2px solid transparent;
