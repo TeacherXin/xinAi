@@ -78,6 +78,23 @@
     "jsx-a11y/click-events-have-key-events": "warn",
     "jsx-a11y/interactive-supports-focus": "warn",
     "jsx-a11y/no-static-element-interactions": "warn",
+
+    "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
+    "react/jsx-closing-tag-location": "error",
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
+    "react/jsx-props-no-multi-spaces": "error",
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "never"
+    }],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
+    "react/jsx-one-expression-per-line": "error",
+    "react/jsx-wrap-multilines": "error",
     
     // 其他规则
     "arrow-body-style": ["warn", "as-needed"],

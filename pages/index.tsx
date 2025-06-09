@@ -1,18 +1,16 @@
-import { Button, Input } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
 
 import type { Chat } from '../components/dialogCard';
 import DialogCard from '../components/dialogCard';
-import ModelSelect from '../components/modelSelect';
+import DialogInput from '../components/dialogInput';
+import LeftList from '../components/leftList';
 import { useModelStore } from '../components/modelSelect/store';
-import SkillSelect from '../components/skillSelect';
 import { useSkillStore } from '../components/skillSelect/store';
 import { connectSSE } from '../utils/sse';
 
 import styles from './index.module.css';
 
-const { TextArea } = Input;
 function HomePage() {
   const [message, setMessage] = useState('');
   const [chatList, setChatList] = useState<Chat[]>([]);
@@ -29,7 +27,6 @@ function HomePage() {
     if (skillStore.skill === 'imageSkill') {
       sendDataWithImage();
     }
-
   };
 
   const sendDataWithImage = async () => {
@@ -48,7 +45,6 @@ function HomePage() {
       chatItem.answer = url;
     }
     setLoading(false);
-    console.log(res);
   };
 
   const sendDataWithText = () => {
@@ -89,35 +85,13 @@ function HomePage() {
   return (
     <div className={styles.root}>
       <div className={styles.main}>
-        <div className={styles.leftList}>
-          <Button
-            className={styles.newSession}
-            onClick={() => {
-              setChatList([]);
-              setSessionId('');
-            }}
-          >
-            新建对话
-          </Button>
-          <SkillSelect />
-          <ModelSelect />
-        </div>
+        <LeftList setChatList={setChatList} setSessionId={setSessionId} />
         <div className={styles.container}>
-          <DialogCard chatList={chatList}
-            loading={loading} />
-          <div className={styles.bottom}>
-            <TextArea
-              className={styles.textArea}
-              style={{ width: 825, height: 150 }}
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
-            <Button className={styles.btn} onClick={sendData}>
-            发送
-            </Button>
-          </div>
+          <DialogCard
+            chatList={chatList}
+            loading={loading}
+          />
+          <DialogInput message={message} sendData={sendData} setMessage={setMessage} />
         </div>
       </div>
     </div>

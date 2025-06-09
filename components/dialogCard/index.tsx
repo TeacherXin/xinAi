@@ -49,14 +49,22 @@ const DialogCard: React.FunctionComponent<IDialogCardProps> = (props) => {
         {chatList.map((chat, index) => (
           <div className={styles.chatItem} key={index}>
             <div className={styles.messageContent}>
-              <div className={styles.message}>{chat.message}</div>
+              <div className={styles.message}>
+                {chat.message}
+              </div>
               <Avatar className={styles.avatar} src="/images/chat_user.png" />
             </div>
             <div className={styles.answerContent}>
               <Avatar className={styles.avatar} src="/images/chat_main.png" />
               <div className={styles.answer}>
-                {chat.type === 'image' && (loading && index === chatList.length - 1 ? <div className={styles.loadingImg}><Spin /></div> : <img className={styles.img} src={chat.answer} alt="" />)}
-                {!chat.type && <ReactMarkdown components={{ code: getCode }}>{chat.answer}</ReactMarkdown>}
+                {chat.type === 'image' && (loading && index === chatList.length - 1 ? 
+                  <div className={styles.loadingImg}>
+                    <Spin />
+                  </div> : <img className={styles.img} src={chat.answer} alt="" />)}
+                {!chat.type && 
+                <ReactMarkdown components={{ code: getCode }}>
+                  {chat.answer}
+                </ReactMarkdown>}
                 {loading && !chat.type && index === chatList.length - 1 && <div className={styles.typewritter} />}
               </div>
             </div>
